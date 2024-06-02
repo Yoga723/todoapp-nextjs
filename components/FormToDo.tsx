@@ -43,7 +43,7 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
   ) => {
     e.preventDefault();
     if (!title) {
-      alert("Harap isi Judul !!!");
+      alert("Harap isi Title !!!");
       return;
     }
     const payload = { title, description };
@@ -66,6 +66,7 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
             method: "PUT",
             body: JSON.stringify(payload),
           });
+          alert("Data Edited !");
           window.location.reload();
         } catch (error) {
           console.error("Error:", error);
