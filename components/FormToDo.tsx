@@ -18,30 +18,31 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
     if (!params) {
       return;
     }
-    // Men id params aya mulai fetch data sesuai dengan ID
-    const fetchData = async () => {
-      if (params.id) {
-        try {
-          const response = await fetch(
-            `/api${params.id ? `?id=${params.id}` : ""}`,
-            {
-              method: "GET",
-            }
-          );
-          const data = await response.json();
-          setToDoData(data);
-          console.log(toDoData);
-        } catch (error) {
-          console.error("Error fetching specific products:", error);
-        }
-      }
-    };
     fetchData();
   }, []);
 
+  // Men id params aya mulai fetch data sesuai dengan ID
+  const fetchData = async () => {
+    if (params.id) {
+      try {
+        const response = await fetch(
+          `/api${params.id ? `?id=${params.id}` : ""}`,
+          {
+            method: "GET",
+          }
+        );
+        const data = await response.json();
+        setToDoData(data);
+        console.log(toDoData);
+      } catch (error) {
+        console.error("Error fetching specific products:", error);
+      }
+    }
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (!toDoData?.title) {
+    if (!title) {
       return;
     }
     // bagian payloadnya tinggal dikirim ke api POST dan UPDATE
@@ -52,14 +53,11 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
         try {
           await fetch("/api", {
             method: "POST",
-            // body: JSON.stringify(toDoData),
+            body: JSON.stringify(payload),
           });
-          console.log("Data berhasil di PUSH!!!");
+          window.location.reload();
         } catch (error) {
           console.log(error);
-        } finally {
-          // nanti ganti dengan request GET data
-          alert("Data sedang dikirim, akan segera kembali ke halaman list!");
         }
         break;
 
@@ -89,7 +87,7 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
           <textarea
             id="title"
             className="w-full h-auto bg-[#161616] text-xl font-serif tracking-wide focus:outline-none resize-none"
-            value={`${toDoData?.title ? toDoData?.title : ""}`}
+            value={`${toDoData?.title ? toDoData?.title : title}`}
             placeholder="Add Title here..."
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -103,7 +101,9 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
             id="description"
             className="w-full h-auto bg-[#161616] text-xl font-serif tracking-wide focus:outline-none resize-none"
             rows={10}
-            value={`${toDoData?.description ? toDoData?.description : ""}`}
+            value={`${
+              toDoData?.description ? toDoData?.description : description
+            }`}
             placeholder="Add descriptions here..."
             onChange={(e) => setDescription(e.target.value)}
           />
