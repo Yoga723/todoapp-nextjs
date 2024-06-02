@@ -1,9 +1,9 @@
-import { ToDoArrayItem } from "@/utils";
+import { ToDoItem } from "@/utils";
 import Link from "next/link";
 import React from "react";
 import DropIndicator from "./DropIndicator";
 
-const Card = ({ _id, title, description, order }: ToDoArrayItem) => {
+const Card = ({ _id, title, description, order }: ToDoItem) => {
   return (
     <>
       <DropIndicator beforeId={_id} />

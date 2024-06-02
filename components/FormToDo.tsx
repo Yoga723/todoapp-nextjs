@@ -20,17 +20,20 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
     }
     // Men id params aya mulai fetch data sesuai dengan ID
     const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `/api${params.id ? `?id=${params.id}` : ""}`,
-          {
-            method: "GET",
-          }
-        );
-        const data = await response.json();
-        setToDoData(data);
-      } catch (error) {
-        console.error("Error fetching specific products:", error);
+      if (params.id) {
+        try {
+          const response = await fetch(
+            `/api${params.id ? `?id=${params.id}` : ""}`,
+            {
+              method: "GET",
+            }
+          );
+          const data = await response.json();
+          setToDoData(data);
+          console.log(toDoData);
+        } catch (error) {
+          console.error("Error fetching specific products:", error);
+        }
       }
     };
     fetchData();
@@ -46,9 +49,6 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
     switch (FormMethod) {
       // Nanti pindahken function untuk post dan update ke index di utils
       case "POST":
-        console.log("Sedang Ngepush!!!");
-        // Need to define id.
-        // dummyData.push(toDoData);
         try {
           await fetch("/api", {
             method: "POST",
