@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FaTrash, FaCheck, FaEdit } from "react-icons/fa";
-import Image from "next/image";
-import { ToDoItem, dummyData } from "@/utils";
+import { ToDoItem } from "@/utils";
+import Link from "next/link";
 
 interface formToDoProps {
   FormMethod: string;
@@ -11,6 +11,7 @@ interface formToDoProps {
 
 const FormToDo = ({ FormMethod }: formToDoProps) => {
   const params = useParams();
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [toDoData, setToDoData] = useState<ToDoItem>();
@@ -32,15 +33,15 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
           }
         );
         const data = await response.json();
-        setToDoData(data);
-        console.log(toDoData);
+        setTitle(data.title);
+        setDescription(data.description);
       } catch (error) {
         console.error("Error fetching specific products:", error);
       }
     }
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: any, FormMethod: string) => {
     e.preventDefault();
     if (!title) {
       return;
@@ -51,7 +52,7 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
       // Nanti pindahken function untuk post dan update ke index di utils
       case "POST":
         try {
-          await fetch("/api", {
+          await fetch(`/api`, {
             method: "POST",
             body: JSON.stringify(payload),
           });
@@ -61,15 +62,24 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
         }
         break;
 
-      case "UPDATE":
-        dummyData.map((toDoData) => {
-          if (toDoData._id == params.id) {
-            toDoData.title = toDoData.title;
-            toDoData.description = toDoData.description;
-            console.log("data telah diubah!");
-          }
+      case "PUT":
+        try {
+          await fetch(`/api${params.id && `?id=${params.id}`}`, {
+            method: "PUT",
+            body: JSON.stringify(payload),
+          });
+          window.location.reload();
+        } catch (error) {
+          console.error("Error:", error);
+        }
+        break;
+      case "DELETE":
+        const response = await fetch(`/api${params.id && `?id=${params.id}`}`, {
+          method: "DELETE",
         });
-
+        if (response.ok) {
+          router.push("/");
+        }
         break;
       default:
         console.error("Invalid FormMethod value:", FormMethod);
@@ -78,7 +88,7 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
   };
 
   return (
-    <section className="w-5/12 h-[38rem] border-2 border-[#161616] rounded-2xl bg-[#161616] p-4 max-lg:hidden">
+    <section className="w-full lg:w-5/12 h-[38rem] rounded-2xl bg-[#161616] p-4">
       <form className="w-full h-full flex flex-col justify-between ">
         <h1 className="font-bold text-2xl text-gray-400 font-mono leading-relaxed tracking-wider ">
           {FormMethod == "POST" ? "Tambah List" : "Details"}
@@ -87,7 +97,7 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
           <textarea
             id="title"
             className="w-full h-auto bg-[#161616] text-xl font-serif tracking-wide focus:outline-none resize-none"
-            value={`${toDoData?.title ? toDoData?.title : title}`}
+            value={`${title}`}
             placeholder="Add Title here..."
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -101,9 +111,7 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
             id="description"
             className="w-full h-auto bg-[#161616] text-xl font-serif tracking-wide focus:outline-none resize-none"
             rows={10}
-            value={`${
-              toDoData?.description ? toDoData?.description : description
-            }`}
+            value={`${description}`}
             placeholder="Add descriptions here..."
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -113,8 +121,8 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
           <div className="w-full flex justify-end gap-4">
             <button
               type="submit"
-              onClick={handleSubmit}
-              className="flex items-center border-2 border-neutral-200 rounded-xl w-3/12 py-2 px-2 gap-2 hover:cursor-pointer hover:bg-neutral-300 hover:bg-opacity-20 relative"
+              onClick={(e) => handleSubmit(e, "POST")}
+              className="flex items-center border-2 border-neutral-200 rounded-xl w-5/12 lg:w-3/12 py-2 px-2 gap-2 hover:cursor-pointer hover:bg-neutral-300 hover:bg-opacity-20 relative"
             >
               <FaCheck />
               <span>Complete</span>
@@ -124,14 +132,15 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
           <div className="w-full flex justify-end gap-4">
             <button
               type="submit"
-              className="flex items-center border-2 border-neutral-200 rounded-xl w-3/12 py-2 px-2 gap-2 hover:cursor-pointer hover:bg-neutral-300 hover:bg-opacity-20 relative"
+              onClick={(e) => handleSubmit(e, "DELETE")}
+              className="flex items-center border-2 border-neutral-200 rounded-xl w-4/12 lg:w-3/12 py-2 px-2 gap-2 hover:cursor-pointer hover:bg-neutral-300 hover:bg-opacity-20 relative"
             >
               <FaTrash />
               <span>Delete</span>
             </button>
             <button
               type="submit"
-              onClick={handleSubmit}
+              onClick={(e) => handleSubmit(e, "PUT")}
               className="flex items-center border-2 border-neutral-200 rounded-xl w-3/12 py-2 px-2 gap-2 hover:cursor-pointer hover:bg-neutral-300 hover:bg-opacity-20 relative"
             >
               <FaEdit />

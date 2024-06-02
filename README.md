@@ -1,4 +1,11 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Tech and Tools Used in Project
+1. Next JS
+2. TailwindCSS 
+3. Typescript 
+4. MongoDB (Database)
+5. Mongoose (library)
+6. Github (repository)
+7. Vercel (hosting)
 
 ## Workflow
 
@@ -7,7 +14,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## PROGRESS
 
-1. Sudah berhasil connect ke mongoDB dan ke cluster0
+1. 
 
 ## TODO
 

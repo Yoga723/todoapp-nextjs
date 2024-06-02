@@ -1,5 +1,3 @@
-import { ObjectId } from "mongodb";
-
 export const dummyData = [
   {
     _id: "1",

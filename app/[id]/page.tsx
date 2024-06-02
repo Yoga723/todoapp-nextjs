@@ -14,7 +14,7 @@ const page = () => {
         className="absolute -z-10"
       />
       <Todolist />
-      <FormToDo FormMethod="UPDATE" />
+        <FormToDo FormMethod="UPDATE" />
     </main>
   );
 };
