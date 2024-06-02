@@ -20,6 +20,7 @@ const Todolist = () => {
         const data = await response;
         setToDoItems(data);
         setLoading(false);
+        console.log("Connected to MongoDB");
       } catch (error) {
         console.error("Error fetching products:", error);
       }
