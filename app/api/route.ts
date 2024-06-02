@@ -33,21 +33,21 @@ export async function GET(req: NextRequest) {
   }
 }
 
-async function UPDATE(req: NextRequest) {
-  mongooseConnect();
-  const id = req.nextUrl.searchParams.get("id");
-  const body = await req.json();
-  const payload = {
-    title: body.title,
-    order: "4",
-    description: body.description,
-  };
-  try {
-    if (id) {
-      const datas = await Tasks.findOneAndUpdate({ _id: id }, payload);
-      return NextResponse.json(datas);
-    }
-  } catch (error) {
-    console.error("Error fetching products:", error);
-  }
-}
+// async function UPDATE(req: NextRequest) {
+//   mongooseConnect();
+//   const id = req.nextUrl.searchParams.get("id");
+//   const body = await req.json();
+//   const payload = {
+//     title: body.title,
+//     order: "4",
+//     description: body.description,
+//   };
+//   try {
+//     if (id) {
+//       const datas = await Tasks.findOneAndUpdate({ _id: id }, payload);
+//       return NextResponse.json(datas);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching products:", error);
+//   }
+// }

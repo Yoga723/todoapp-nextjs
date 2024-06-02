@@ -1,18 +1,15 @@
 import mongoose from "mongoose";
 let isConnect = false;
-const collection = "todo_app";
 const MONGODB_USER_URI =
-  "mongodb+srv://user123:tnYblgHYmBbv0Fin@cluster0.ryyhcii.mongodb.net";
+  "mongodb+srv://user123:tnYblgHYmBbv0Fin@cluster0.ryyhcii.mongodb.net/todo_app";
 
 export const mongooseConnect = async () => {
   mongoose.set("strictQuery", true);
   if (isConnect) return;
-  if (!`${MONGODB_USER_URI}/${collection}/?retryWrites=true&w=majority`)
+  if (!`${MONGODB_USER_URI}`)
     return console.log("Mongo DB URL Not Found!");
   try {
-    await mongoose.connect(
-      `${MONGODB_USER_URI}/${collection}/?retryWrites=true&w=majority`
-    );
+    await mongoose.connect(`${MONGODB_USER_URI}`);
     isConnect = true;
     console.log("Connected to MongoDB");
   } catch (error) {
