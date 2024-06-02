@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 let isConnect = false;
-const myDb = "todo_app";
 
 export const mongooseConnect = async () => {
   if (isConnect) return;
   try {
     await mongoose.connect(
-      `${process.env.MONGODB_URI}/${myDb}`
+      `${process.env.MONGODB_URI}`
     );
     isConnect = true;
     console.log("Connected to MongoDB");
