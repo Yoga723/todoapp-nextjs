@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { FaTrash, FaCheck, FaEdit } from "react-icons/fa";
 import { ToDoItem } from "@/utils";
-import Link from "next/link";
 
 interface formToDoProps {
   FormMethod: string;
@@ -19,19 +18,16 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
     if (!params) {
       return;
     }
-    fetchData();
-  }, []);
+    fetchData(params.id);
+  }, [params]);
 
   // Men id params aya mulai fetch data sesuai dengan ID
-  const fetchData = async () => {
-    if (params.id) {
+  const fetchData = async (id: any) => {
+    if (id) {
       try {
-        const response = await fetch(
-          `/api${params.id ? `?id=${params.id}` : ""}`,
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`/api${id && `?id=${id}`}`, {
+          method: "GET",
+        });
         const data = await response.json();
         setTitle(data.title);
         setDescription(data.description);
@@ -41,15 +37,17 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
     }
   };
 
-  const handleSubmit = async (e: any, FormMethod: string) => {
+  const handleSubmit = async (
+    e: any,
+    FormMethod: "POST" | "PUT" | "DELETE"
+  ) => {
     e.preventDefault();
     if (!title) {
+      alert("Harap isi Judul !!!");
       return;
     }
-    // bagian payloadnya tinggal dikirim ke api POST dan UPDATE
     const payload = { title, description };
     switch (FormMethod) {
-      // Nanti pindahken function untuk post dan update ke index di utils
       case "POST":
         try {
           await fetch(`/api`, {
@@ -73,7 +71,10 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
           console.error("Error:", error);
         }
         break;
+
       case "DELETE":
+        const confirmed = window.confirm("Anda yakin ingin Menghapus data ini?");
+        if (!confirmed) return;
         const response = await fetch(`/api${params.id && `?id=${params.id}`}`, {
           method: "DELETE",
         });

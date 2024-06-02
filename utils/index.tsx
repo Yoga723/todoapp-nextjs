@@ -1,3 +1,15 @@
+export interface ToDoItem {
+  _id: string;
+  title: string;
+  order: string;
+  description?: string;
+}
+
+export interface payloadProps {
+  title: string;
+  descriptions?: string;
+}
+
 export const dummyData = [
   {
     _id: "1",
@@ -34,10 +46,3 @@ export const dummyData = [
     description: "Beli makan di warmindo",
   },
 ];
-
-export interface ToDoItem {
-  _id: string;
-  title: string;
-  order: string;
-  description?: string;
-}

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { ToDoItem } from "@/utils";
 import Card from "./Card";
 import { IoMdAdd } from "react-icons/io";
-import Image from "next/image";
 import Link from "next/link";
 import Loader from "./Loader";
 
@@ -26,10 +25,6 @@ const Todolist = () => {
     };
     fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log(toDoItems);
-  }, [toDoItems]);
 
   return (
     <section className="flex items-center justify-center bg-[#161616] w-full lg:w-5/12 h-[38rem] rounded-2xl p-4 ">

@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .mainStyle{
-    @apply relative flex lg:justify-center flex-col md:flex-row gap-5 lg:gap-24 min-h-screen h-auto items-center px-2  lg:px-24 text-white
+    @apply relative flex lg:justify-center flex-col md:flex-row gap-5 lg:gap-24 min-h-screen h-auto items-center max-lg:py-10 px-2  lg:px-24 text-white
 }
