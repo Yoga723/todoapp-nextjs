@@ -1,9 +1,10 @@
+import FormToDo from "@/components/FormToDo";
+import Todolist from "@/components/Todolist";
 import Image from "next/image";
 import bg from "@/public/bluebg.png";
-import Todolist from "@/components/Todolist";
-import FormToDo from "@/components/FormToDo";
+import React from "react";
 
-export default function Home() {
+const page = () => {
   return (
     <main className="mainStyle">
       <Image
@@ -13,7 +14,9 @@ export default function Home() {
         className="absolute -z-10"
       />
       <Todolist />
-      <FormToDo FormMethod="POST" />
+      <FormToDo FormMethod="UPDATE" />
     </main>
   );
-}
+};
+
+export default page;
