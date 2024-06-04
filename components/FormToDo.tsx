@@ -74,7 +74,9 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
         break;
 
       case "DELETE":
-        const confirmed = window.confirm("Anda yakin ingin Menghapus data ini?");
+        const confirmed = window.confirm(
+          "Anda yakin ingin Menghapus data ini?"
+        );
         if (!confirmed) return;
         const response = await fetch(`/api${params.id && `?id=${params.id}`}`, {
           method: "DELETE",
@@ -92,26 +94,26 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
   return (
     <section className="w-full lg:w-5/12 h-[38rem] rounded-2xl bg-[#161616] p-4">
       <form className="w-full h-full flex flex-col justify-between ">
-        <h1 className="font-bold text-2xl text-gray-400 font-mono leading-relaxed tracking-wider ">
+        <h1 className="font-bold text-2xl font-archivo leading-relaxed tracking-wider">
           {FormMethod == "POST" ? "Tambah List" : "Details"}
         </h1>
         <div className="flex flex-col gap-4 items-start justify-start w-full h-full my-4 ">
           <textarea
             id="title"
-            className="w-full h-auto bg-[#161616] text-xl font-serif tracking-wide focus:outline-none resize-none"
+            className="w-full h-auto text-gray-400 bg-[#161616] text-xl font-semibold tracking-wide focus:outline-none resize-none"
             value={`${title}`}
             placeholder="Add Title here..."
             onChange={(e) => setTitle(e.target.value)}
           />
           <label
             htmlFor="description"
-            className="text-base text-gray-400 font-mono leading-relaxed tracking-wider "
+            className="font-bold text-2xl font-archivo leading-relaxed tracking-wider "
           >
             DESCRIPTIONS
           </label>
           <textarea
             id="description"
-            className="w-full h-auto bg-[#161616] text-xl font-serif tracking-wide focus:outline-none resize-none"
+            className="w-full h-auto text-gray-400 bg-[#161616] text-xl font-light tracking-wide focus:outline-none resize-none"
             rows={10}
             value={`${description}`}
             placeholder="Add descriptions here..."

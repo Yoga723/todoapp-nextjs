@@ -29,7 +29,7 @@ const Todolist = () => {
   return (
     <section className="flex items-center justify-center bg-[#161616] w-full lg:w-5/12 h-[38rem] rounded-2xl p-4 ">
       <div className="flex flex-col w-full h-full">
-        <h1 className="font-bold text-2xl font-mono leading-relaxed tracking-wider ">
+        <h1 className="font-bold text-2xl font-archivo leading-relaxed tracking-wider ">
           To Do List Today
         </h1>
 

@@ -10,10 +10,10 @@ const Card = ({ _id, title, description, order }: ToDoItem) => {
       <Link
         href={`/${_id}`}
         draggable={true}
-        className="w-full min-h-16 overflow-hidden hover:cursor-pointer active:cursor-grabbing hover:bg-neutral-300 hover:bg-opacity-20 rounded-xl px-4 py-1"
+        className="w-full min-h-16 overflow-hidden hover:cursor-pointer active:cursor-grabbing hover:bg-neutral-300 hover:bg-opacity-20 rounded-xl px-4 py-1 "
       >
-        <h2 className="text-xl truncate">{title}</h2>
-        <p className="text-base text-gray-400 truncate">{description}</p>
+        <h2 className="text-xl truncate font-semibold tracking-wider">{title}</h2>
+        <p className="text-base text-gray-400 truncate font-light tracking-wide">{description}</p>
       </Link>
       <DropIndicator beforeId={"-1"} />
     </>
