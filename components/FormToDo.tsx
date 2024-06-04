@@ -100,7 +100,7 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
         <div className="flex flex-col gap-4 items-start justify-start w-full h-full my-4 ">
           <textarea
             id="title"
-            className="w-full h-auto text-gray-400 bg-[#161616] text-xl font-semibold tracking-wide focus:outline-none resize-none"
+            className="w-full h-auto text-gray-400 bg-[#161616] text-xl font-semibold tracking-wide resize-none px-2 rounded-lg"
             value={`${title}`}
             placeholder="Add Title here..."
             onChange={(e) => setTitle(e.target.value)}
@@ -113,7 +113,7 @@ const FormToDo = ({ FormMethod }: formToDoProps) => {
           </label>
           <textarea
             id="description"
-            className="w-full h-auto text-gray-400 bg-[#161616] text-xl font-light tracking-wide focus:outline-none resize-none"
+            className="w-full h-auto text-gray-400 bg-[#161616] text-xl font-light tracking-wide resize-none px-2 rounded-lg"
             rows={10}
             value={`${description}`}
             placeholder="Add descriptions here..."
